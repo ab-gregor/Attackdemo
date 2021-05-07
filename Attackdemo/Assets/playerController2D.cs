@@ -10,6 +10,7 @@ public class playerController2D : MonoBehaviour
     Rigidbody2D rd2d;
     SpriteRenderer sprd;
     bool isGrounded;
+    public bool canMove = true;
 
     [SerializeField]
         Transform groundCheck;
@@ -35,69 +36,72 @@ public class playerController2D : MonoBehaviour
 
     // Update is called once per frame
     private void FixedUpdate()
-        
-    {
-        if ((Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground")))||
-                 (Physics2D.Linecast(transform.position, groundCheckR.position, 1 << LayerMask.NameToLayer("Ground")))||
-                  (Physics2D.Linecast(transform.position, groundCheckL.position, 1 << LayerMask.NameToLayer("Ground"))))
-            {
-            isGrounded = true;
 
-        }
-        else
+    {
+        if (canMove)
         {
-            isGrounded = false;
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("attack_JumpKick"))
+            if ((Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"))) ||
+                     (Physics2D.Linecast(transform.position, groundCheckR.position, 1 << LayerMask.NameToLayer("Ground"))) ||
+                      (Physics2D.Linecast(transform.position, groundCheckL.position, 1 << LayerMask.NameToLayer("Ground"))))
             {
+                isGrounded = true;
 
             }
             else
             {
-                animator.Play("attack_Jump");
-            }
-            
-        }
-        if (Input.GetKey("d") || Input.GetKey("right"))
-        {
-            rd2d.velocity = new Vector2(runSpeed, rd2d.velocity.y);
-            if (isGrounded)
-                animator.Play("player_run");
-            transform.eulerAngles = new Vector3(0, 0, 0);
-
-
-        }
-        else if (Input.GetKey("a") || Input.GetKey("left"))
-        {
-            rd2d.velocity = new Vector2(-10, rd2d.velocity.y);
-            if (isGrounded)
-                animator.Play("player_run");
-
-            transform.eulerAngles = new Vector3(0, 180, 0);
-
-        }
-        else
-        {
-            if (isGrounded)
-            {
-                if ((animator.GetCurrentAnimatorStateInfo(0).IsName("attack_Kick")) || (animator.GetCurrentAnimatorStateInfo(0).IsName("attack_leftPunch"))
-                    || (animator.GetCurrentAnimatorStateInfo(0).IsName("attack_rightPunch")))
+                isGrounded = false;
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("attack_JumpKick"))
                 {
-                    
+
                 }
                 else
                 {
-                    animator.Play("idle");
+                    animator.Play("attack_Jump");
                 }
-                rd2d.velocity = new Vector2(0, rd2d.velocity.y);
 
             }
-        }
-        if ((Input.GetKey("w") || Input.GetKey("up"))&&isGrounded)
-        {
-            
-            animator.Play("player_jump");
-            rd2d.velocity = new Vector2(rd2d.velocity.x, jumpSpeed);
-           
+            if (Input.GetKey("d") || Input.GetKey("right"))
+            {
+                rd2d.velocity = new Vector2(runSpeed, rd2d.velocity.y);
+                if (isGrounded)
+                    animator.Play("player_run");
+                transform.eulerAngles = new Vector3(0, 0, 0);
+
+
+            }
+            else if (Input.GetKey("a") || Input.GetKey("left"))
+            {
+                rd2d.velocity = new Vector2(-10, rd2d.velocity.y);
+                if (isGrounded)
+                    animator.Play("player_run");
+
+                transform.eulerAngles = new Vector3(0, 180, 0);
+
+            }
+            else
+            {
+                if (isGrounded)
+                {
+                    if ((animator.GetCurrentAnimatorStateInfo(0).IsName("attack_Kick")) || (animator.GetCurrentAnimatorStateInfo(0).IsName("attack_leftPunch"))
+                        || (animator.GetCurrentAnimatorStateInfo(0).IsName("attack_rightPunch")))
+                    {
+
+                    }
+                    else
+                    {
+                        animator.Play("idle");
+                    }
+                    rd2d.velocity = new Vector2(0, rd2d.velocity.y);
+
+                }
+            }
+            if ((Input.GetKey("w") || Input.GetKey("up")) && isGrounded)
+            {
+
+                animator.Play("player_jump");
+                rd2d.velocity = new Vector2(rd2d.velocity.x, jumpSpeed);
+
+            }
         }
     }
 }

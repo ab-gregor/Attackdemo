@@ -2420,6 +2420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d0d4954a863ff140bb3558599cbb299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canMove: 1
   groundCheck: {fileID: 821092051}
   groundCheckR: {fileID: 1585506918}
   groundCheckL: {fileID: 1496347568}
@@ -2486,12 +2487,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1433500f5f3e36148ae376dedd105c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canAttack: 1
+  playerControllerReference: {fileID: 1383130557}
   attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted: 0
   pushBackScript: {fileID: 1383130558}
   damageOfFirstAttack: 1
+  windingUpTimeOfFirstAttack: 0.3
   damageOfSecondAttack: 5
+  windingUpTimeOfSecondAttack: 0.7
   damageOfThirdAttack: 10
+  windingUpTimeOfThirdAttack: 1
   statusSciptOfEnemy: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!1 &1420378211
 GameObject:
   m_ObjectHideFlags: 0
