@@ -2249,9 +2249,7 @@ GameObject:
   - component: {fileID: 1383130551}
   - component: {fileID: 1383130556}
   - component: {fileID: 1383130555}
-  - component: {fileID: 1383130554}
   - component: {fileID: 1383130557}
-  - component: {fileID: 1383130558}
   - component: {fileID: 1383130559}
   - component: {fileID: 1383130560}
   m_Layer: 0
@@ -2349,18 +2347,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1383130554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1383130550}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7772389e84e06f44faa8a392a540c675, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &1383130555
 Rigidbody2D:
   serializedVersion: 4
@@ -2426,29 +2412,6 @@ MonoBehaviour:
   groundCheckL: {fileID: 1496347568}
   runSpeed: 10
   jumpSpeed: 15
---- !u!114 &1383130558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1383130550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b4a0098001af1f4796577dc19035957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1383130551}
-  pushBackForceOfFirstAttack: 2
-  isAttackButtonPressed: 0
-  DoPushAttackBooleanForTheWholeScript: 1
-  myAtackBoxCollider: {fileID: 1383130559}
-  playerFacingDirection: 0
-  enemyRigidBody: {fileID: 0}
-  isGrounded: 0
-  groundCheck: {fileID: 821092051}
-  groundCheckR: {fileID: 1585506918}
-  groundCheckL: {fileID: 1496347568}
 --- !u!61 &1383130559
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2487,18 +2450,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1433500f5f3e36148ae376dedd105c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAttack: 1
-  playerControllerReference: {fileID: 1383130557}
-  attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted: 0
-  pushBackScript: {fileID: 1383130558}
+  playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean: {fileID: 1383130557}
+  animatorOfThePlayer: {fileID: 1383130551}
+  myAtackBoxCollider: {fileID: 1383130559}
+  groundCheck: {fileID: 821092051}
+  groundCheckR: {fileID: 1585506918}
+  groundCheckL: {fileID: 1496347568}
+  pushBackForceOfFirstAttack: 2
   damageOfFirstAttack: 1
   windingUpTimeOfFirstAttack: 0.3
   damageOfSecondAttack: 5
   windingUpTimeOfSecondAttack: 0.7
   damageOfThirdAttack: 10
   windingUpTimeOfThirdAttack: 1
-  statusSciptOfEnemy: {fileID: 0}
-  animator: {fileID: 0}
 --- !u!1 &1420378211
 GameObject:
   m_ObjectHideFlags: 0
