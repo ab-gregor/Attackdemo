@@ -85,6 +85,11 @@ public class AttackMain : MonoBehaviour
             enemyRigidBody = null;
 
         }
+
+        else
+        {
+            PlayAppropriateAnimationDependentOnPlayerIsGroundedBoolean();
+        }
     }
 
     private void CalculateTheForceAsVectorAndAddItToTheEnemyRigicbody()
@@ -139,71 +144,83 @@ public class AttackMain : MonoBehaviour
 
     public IEnumerator AttackWhenverAttackButtonIsPressedAndEnemyRigidbodyWithAnAttachedStatusScriptIsAvailable()
     {
-        if(enemyRigidBody)
+        if (enemyRigidBody)
         {
             statusSciptOfEnemy = enemyRigidBody.gameObject.GetComponent<Statuses>();
-            
 
+        }
 
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
                 
-                attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted += 1;
+            attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted += 1;
 
 
-                if (attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted > 2)
-                {
-                    attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted = 0;
-                }
+            if (attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted > 2)
+            {
+                attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted = 0;
+            }
                                              
 
-                if (attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted == 0)
+            if (attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted == 0)
+            {
+                playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean.canMove = false;
+                canAttack = false;
+
+                yield return new WaitForSeconds(windingUpTimeOfFirstAttack);
+
+                IfEnemyHasBeenDetectedThenPushTheEnemyAndAlsoPlayTheAppropriateAnimation();
+
+                if (statusSciptOfEnemy)
                 {
-                    playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean.canMove = false;
-                    canAttack = false;
-
-                    yield return new WaitForSeconds(windingUpTimeOfFirstAttack);
-
-                    IfEnemyHasBeenDetectedThenPushTheEnemyAndAlsoPlayTheAppropriateAnimation();
                     statusSciptOfEnemy.DecreaseHealthByTheNumber(damageOfFirstAttack);
-
-                    statusSciptOfEnemy = null;
-                    playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean.canMove = true;
-                    canAttack = true;
                 }
 
-                if(attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted == 1)
-                {
-                    canAttack = false;
-                    playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean.canMove = false;
-
-                    yield return new WaitForSeconds(windingUpTimeOfSecondAttack);
-
-                    statusSciptOfEnemy.DecreaseHealthByTheNumber(damageOfSecondAttack);
-                    animatorOfThePlayer.Play("attack_leftPunch");
-
-                    statusSciptOfEnemy = null;
-                    playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean.canMove = true;
-                    canAttack = true;
-                }
-
-                if(attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted == 2)
-                {
-                    canAttack = false;
-                    playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean.canMove = false;
-
-                    yield return new WaitForSeconds(windingUpTimeOfThirdAttack);
-
-                    statusSciptOfEnemy.DecreaseHealthByTheNumber(damageOfThirdAttack);
-                    animatorOfThePlayer.Play("attack_rightPunch");
-
-                    statusSciptOfEnemy = null;
-                    playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean.canMove = true;
-                    canAttack = true;
-                }
-
-
+                statusSciptOfEnemy = null;
+                playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean.canMove = true;
+                canAttack = true;
             }
+
+            if(attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted == 1)
+            {
+                canAttack = false;
+                playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean.canMove = false;
+
+                yield return new WaitForSeconds(windingUpTimeOfSecondAttack);
+
+                if (statusSciptOfEnemy)
+                {
+                    statusSciptOfEnemy.DecreaseHealthByTheNumber(damageOfSecondAttack);
+                }
+
+                animatorOfThePlayer.Play("attack_leftPunch");
+                
+                statusSciptOfEnemy = null;
+                playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean.canMove = true;
+                canAttack = true;
+            }
+
+            if(attackIDCounterWhichIsUsedToControlWhichAttackIsToBeExecuted == 2)
+            {
+                canAttack = false;
+                playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean.canMove = false;
+
+                yield return new WaitForSeconds(windingUpTimeOfThirdAttack);
+
+                if(statusSciptOfEnemy)
+                {
+                    statusSciptOfEnemy.DecreaseHealthByTheNumber(damageOfThirdAttack);
+                }
+
+                animatorOfThePlayer.Play("attack_rightPunch");
+
+                statusSciptOfEnemy = null;
+                playerControllerReferenceWhichHasATurnOnAndTurnOffBoolean.canMove = true;
+                canAttack = true;
+            }
+
+
         }
+        
     }
 }
